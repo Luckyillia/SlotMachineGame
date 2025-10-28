@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pl-PL">
+    <head>
+		<meta charset="utf-8">
+		<style>
+			.btn {background-color: red; color: #fff;}
+			.slot-machine {display: none;}
+			
+		</style>
+		<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+		<script>
+			const SYMBOL = ['🍉', '🍋', '🍒', '🔔', '🍇', '7️⃣', '💰', '🍀'];
+			let money = 0;
+			let bet = 1;
+			let slot1;
+			let slot2;
+			let slot3;
+			const SLOT_LENGHT = 32;
+			function generateSymbols() {
+				let symbols = [];
+				for (let i = 0; i < SLOT_LENGHT; i++) {
+					let symbol = SYMBOL[Math.floor(Math.random() * SYMBOL.length)];
+					symbols.push(symbol);
+				}
+				return symbols;
+			}
+			$(document).ready(function () {
+				slot1 = generateSymbols();
+				slot2 = generateSymbols();
+				slot3 = generateSymbols();
+				function loadSymbols() {
+					for (let i = 0; i < SLOT_LENGHT; i++) {
+						$(".slot1").append(slot1[i]);
+						$(".slot2").append(slot2[i]);
+						$(".slot3").append(slot3[i]);
+					}
+				}
+				function startGame() {
+					loadSymbols();
+				}
+				$(".close-btn").click(function(){
+					$(".modal").hide();
+					$(".slot-machine").show();
+					money = $("#moneyModal").val();
+					$("#money").text(money);
+					$("#bet").val(bet);
+					startGame();
+				});
+
+			});
+		</script>
+    </head>
+    <body>
+		<div class="modal">
+			<div class="modal-content">
+				<p>Za ile chesz grac?</p>
+				<form>
+					<input type="number" id="moneyModal">
+				</form>
+				<button class="close-btn">Start</button>
+			</div>
+		</div>
+		<div class="slot-machine">
+			<h1>Slot Machine</h1>
+			<div class="bar">
+				<div class="slot1">
+					
+				</div>
+				<div class="slot2">
+					
+				</div>
+				<div class="slot3">
+					
+				</div>
+			</div>
+			<div class="money">
+				<p>Kredyt: <span id="money"></span></p>
+			</div>
+			<div class="bet">
+				<p>Satwka:</p>
+				<input type="number" id="bet">
+			</div>
+			<button class="btn">Spin</button>
+		</div>
+    </body>
+</html>
