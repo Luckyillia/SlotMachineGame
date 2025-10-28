@@ -24,27 +24,30 @@
 				}
 				return symbols;
 			}
+			slot1 = generateSymbols();
+			slot2 = generateSymbols();
+			slot3 = generateSymbols();
+			function loadSymbols() {
+				for (let i = 0; i < SLOT_LENGHT; i++) {
+					$(".slot1").append(slot1[i]);
+					$(".slot2").append(slot2[i]);
+					$(".slot3").append(slot3[i]);
+				}
+			}
+			function initGame() {
+				loadSymbols();
+			}
+			function startGame() {
+				
+			}
 			$(document).ready(function () {
-				slot1 = generateSymbols();
-				slot2 = generateSymbols();
-				slot3 = generateSymbols();
-				function loadSymbols() {
-					for (let i = 0; i < SLOT_LENGHT; i++) {
-						$(".slot1").append(slot1[i]);
-						$(".slot2").append(slot2[i]);
-						$(".slot3").append(slot3[i]);
-					}
-				}
-				function startGame() {
-					loadSymbols();
-				}
+				initGame();
 				$(".close-btn").click(function(){
 					$(".modal").hide();
 					$(".slot-machine").show();
 					money = $("#moneyModal").val();
 					$("#money").text(money);
 					$("#bet").val(bet);
-					startGame();
 				});
 
 			});
