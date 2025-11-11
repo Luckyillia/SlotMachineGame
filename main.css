@@ -145,6 +145,27 @@ body {
     font-size: 1.5rem;
 }
 
+.slot1.spinning{
+    animation: spin 3.5s ease-out;
+}
+
+.slot2.spinning{
+    animation: spin 3.75s ease-out;
+}
+
+.slot3.spinning{
+    animation: spin 4s ease-out;
+}
+
+@keyframes spin {
+    from {
+        transform: translateY(-3500px);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
 @media (max-width: 768px) {
     .row {
         flex-direction: column;

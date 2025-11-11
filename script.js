@@ -64,18 +64,18 @@ function checkResult(result) {
         if (result[i][0] == result[i][1] && result[i][1] == result[i][2]) {
             console.log(result[i][0] + " " + result[i][1] + " " + result[i][2]);
             if (ARR_80.includes(result[i][0])) {
-                win = bet * 80;
+                win += bet * 80;
             }
             if (ARR_160.includes(result[i][0])) {
-                win = bet * 160;
+                win += bet * 160;
             }
         }else if (result[i][0] == result[i][1] || result[i][1] == result[i][2]) {
             console.log(result[i][0] + " " + result[i][1] + " " + result[i][2]);
             if (ARR_80.includes(result[i][0])) {
-                win = bet * 40;
+                win += bet * 40;
             }
             if (ARR_160.includes(result[i][0])) {
-                win = bet * 80;
+                win += bet * 80;
             }
         }
     }
@@ -91,15 +91,33 @@ function initGame() {
 function startGame() {
     if (money >= 10) {
         money -= bet*10;
+        $("#money").text(money);
+
+        $(".slot1, .slot2, .slot3").removeClass('spinning');
+        $("#btn").attr("disabled", true);
+        
         loadSymbols();
         result = generateResult();
         console.log(result);
-        setResult(result);
+        setResult(result);  
+
+        setTimeout(() => {
+            $(".slot1").addClass('spinning');
+            $(".slot2").addClass('spinning');
+            $(".slot3").addClass('spinning');
+        }, 10); 
         
-        let win = checkResult(result);
-        money += win;
-        $("#money").text(money);
-    }else{
+        setTimeout(() => {
+            let win = checkResult(result);
+            if(win > 0){
+                money += win;
+                alert("Wygrana: " + win);
+                $("#money").text(money);
+            }
+            $("#btn").removeAttr("disabled");
+        }, 4010);
+        
+    } else {
         alert("Brak srodkow!");
         $("#modal").show();
         $("#slotMachine").hide();
